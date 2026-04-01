@@ -1,0 +1,63 @@
+    .page { display: grid; gap: 1.5rem; }
+    .hero-card, .action-card {
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.05);
+    }
+    .hero-card {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(52,109,255,.22), rgba(0,208,156,.14));
+    }
+    .eyebrow {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .74rem;
+      color: #73f0cb;
+    }
+    h2 {
+      margin: .6rem 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+    }
+    .copy {
+      margin: 0;
+      max-width: 48rem;
+      color: rgba(233,241,255,.74);
+      line-height: 1.7;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .action-card {
+      display: grid;
+      gap: .65rem;
+      padding: 1.3rem;
+      color: #f6fbff;
+      text-decoration: none;
+      transition: 180ms ease;
+    }
+    .action-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.08);
+    }
+    .action-card span {
+      color: #73f0cb;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .74rem;
+    }
+    .action-card strong {
+      font-size: 1.3rem;
+    }
+    .action-card p {
+      margin: 0;
+      color: rgba(233,241,255,.74);
+      line-height: 1.6;
+    }
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }

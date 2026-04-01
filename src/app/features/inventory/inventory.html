@@ -1,0 +1,96 @@
+    <app-shell title="Inventory">
+      <div class="page">
+        <section class="toolbar">
+          <div>
+            <p class="eyebrow">Inventory workspace</p>
+            <h2>Save products manually with category and QR data</h2>
+          </div>
+
+          <form class="filters" [formGroup]="filterForm" (ngSubmit)="loadProducts()">
+            <input type="search" formControlName="keyword" placeholder="Search products">
+            <select formControlName="categoryId" title="category">
+              <option value="">All categories</option>
+              @for (category of categories(); track category.id) {
+                <option [value]="category.id">{{ category.name }}</option>
+              }
+            </select>
+            <button type="submit">Apply</button>
+          </form>
+        </section>
+
+        @if (auth.isAdmin()) {
+          <section class="editor-card">
+            <div class="editor-head">
+              <h3>{{ editingId() ? 'Update product' : 'Create product' }}</h3>
+              <button type="button" class="ghost" (click)="generateQrCode()">Generate QR data</button>
+            </div>
+
+            @if (!categories().length) {
+              <p class="helper">
+                No categories exist in the database yet. Create categories in the backend first, then add products.
+              </p>
+            }
+
+            <form [formGroup]="productForm" class="editor-grid" (ngSubmit)="saveProduct()">
+              <input type="text" formControlName="name" placeholder="Product name">
+              <input type="number" formControlName="price" placeholder="Price">
+              <input type="number" formControlName="quantity" placeholder="Quantity">
+              <select formControlName="categoryId" title="category">
+                <option value="">Select category</option>
+                @for (category of categories(); track category.id) {
+                  <option [value]="category.id">{{ category.name }}</option>
+                }
+              </select>
+              <input class="qr-input" type="text" formControlName="qrCode" placeholder="QR code data">
+              <button type="submit">{{ saving() ? 'Saving...' : editingId() ? 'Update' : 'Create' }}</button>
+              @if (editingId()) {
+                <button type="button" class="ghost" (click)="resetEditor()">Cancel</button>
+              }
+            </form>
+          </section>
+        }
+
+        <section class="table-card">
+          <div class="table-head">
+            <h3>Product list</h3>
+            <span>{{ products().length }} items</span>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>QR Data</th>
+                  <th>Created</th>
+                  @if (auth.isAdmin()) {
+                    <th>Actions</th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                @for (product of products(); track product.id) {
+                  <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.categoryName }}</td>
+                    <td [class.low]="product.quantity < 10">{{ product.quantity }}</td>
+                    <td>{{ product.price | appPrice }}</td>
+                    <td class="mono">{{ product.qrCode }}</td>
+                    <td>{{ product.createdAt | date:'MMM d, y' }}</td>
+                    @if (auth.isAdmin()) {
+                      <td class="actions">
+                        <button type="button" class="ghost" (click)="editProduct(product)">Edit</button>
+                        <button type="button" class="danger" (click)="removeProduct(product.id)">Delete</button>
+                      </td>
+                    }
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </app-shell>

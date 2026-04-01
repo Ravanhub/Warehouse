@@ -1,0 +1,115 @@
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background:
+        radial-gradient(circle at top left, rgba(60, 112, 255, 0.20), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 208, 156, 0.16), transparent 28%),
+        #09111f;
+      color: #f6fbff;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(8, 16, 32, 0.76);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #73f0cb;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .muted {
+      margin-top: 0.8rem;
+      color: rgba(233, 241, 255, 0.72);
+      line-height: 1.6;
+    }
+
+    .nav {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .nav a,
+    .ghost-btn {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e9f1ff;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 1rem;
+      padding: 0.95rem 1rem;
+      text-decoration: none;
+      transition: 180ms ease;
+      cursor: pointer;
+    }
+
+    .nav a.active,
+    .nav a:hover,
+    .ghost-btn:hover {
+      background: linear-gradient(135deg, rgba(60, 112, 255, 0.28), rgba(0, 208, 156, 0.16));
+      border-color: rgba(115, 240, 203, 0.36);
+    }
+
+    .session-card {
+      display: grid;
+      gap: 0.6rem;
+      padding: 1rem;
+      border-radius: 1.2rem;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .currency-switcher {
+      display: grid;
+      gap: 0.35rem;
+      color: rgba(233, 241, 255, 0.72);
+      font-size: 0.85rem;
+    }
+
+    .currency-switcher select {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.9rem;
+      padding: 0.8rem 0.9rem;
+      background: rgba(255, 255, 255, 0.04);
+      color: #f6fbff;
+      font: inherit;
+    }
+
+    .badge {
+      width: fit-content;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(115, 240, 203, 0.12);
+      color: #73f0cb;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+
+    @media (max-width: 960px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    }

@@ -1,0 +1,40 @@
+    <app-shell title="QR Scanner">
+      <div class="page">
+        <section class="scanner-card">
+          <div>
+            <p class="eyebrow">Real QR code intake</p>
+            <h2>Scan a product QR code and resolve it against your database</h2>
+            <p class="copy">This uses the browser camera and BarcodeDetector when your browser supports it.</p>
+          </div>
+
+          <div class="scanner-preview">
+            <video #videoRef autoplay muted></video>
+            <div class="scan-frame"></div>
+          </div>
+
+          <div class="scanner-actions">
+            <button type="button" (click)="startScanner()">{{ scanning() ? 'Scanner Running' : 'Start Camera Scanner' }}</button>
+            <button type="button" class="ghost" (click)="stopScanner()">Stop</button>
+          </div>
+
+          <p class="status">{{ status() }}</p>
+        </section>
+
+        <section class="manual-card">
+          <h3>Manual QR lookup</h3>
+          <input #codeInput type="text" placeholder="Paste QR code data">
+          <button type="button" (click)="lookupProduct(codeInput.value)">Resolve code</button>
+
+          @if (product()) {
+            <div class="result-card">
+              <strong>{{ product()?.name }}</strong>
+              <p>Category: {{ product()?.categoryName }}</p>
+              <p>Price: {{ product()?.price | appPrice }}</p>
+              <p>Quantity: {{ product()?.quantity }}</p>
+              <p>QR: {{ product()?.qrCode }}</p>
+              <p>Created: {{ product()?.createdAt | date:'MMM d, y' }}</p>
+            </div>
+          }
+        </section>
+      </div>
+    </app-shell>

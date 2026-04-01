@@ -1,0 +1,106 @@
+    <app-shell title="Dashboard">
+      <div class="page">
+        <section class="hero-card">
+          <div>
+            <p class="eyebrow">{{ auth.isAdmin() ? 'Admin overview' : 'User overview' }}</p>
+            <h2>{{ auth.isAdmin() ? 'Warehouse command center' : 'Inventory visibility at a glance' }}</h2>
+            <p class="copy">Use the cards below to review stock value, low inventory pressure, and the breadth of your catalog.</p>
+          </div>
+          <div class="hero-badge">{{ auth.session()?.username }}</div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span>Total products</span>
+            <strong>{{ totalProducts() }}</strong>
+          </article>
+          <article class="stat-card">
+            <span>Total categories</span>
+            <strong>{{ totalCategories() }}</strong>
+          </article>
+          <article class="stat-card">
+            <span>Inventory value</span>
+            <strong>{{ inventoryValue() | appPrice }}</strong>
+          </article>
+          <article class="stat-card warning">
+            <span>Low stock items</span>
+            <strong>{{ lowStockCount() }}</strong>
+          </article>
+        </section>
+
+        <section class="panel-grid">
+          <article class="panel">
+            <header>
+              <h3>Stock pressure</h3>
+            </header>
+            <div class="info-list" role="list">
+              @for (item of topLowStock(); track item.name) {
+                <div class="info-item" role="listitem">
+                  <strong>{{ item.name }}</strong>
+                  <span>{{ item.quantity }} units left</span>
+                </div>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <header>
+              <h3>Category mix</h3>
+            </header>
+            <div class="info-list" role="list">
+              @for (item of categoryBreakdown(); track item.name) {
+                <div class="info-item" role="listitem">
+                  <strong>{{ item.name }}</strong>
+                  <span>{{ item.count }} products</span>
+                </div>
+              }
+            </div>
+          </article>
+        </section>
+
+        <section class="chart-grid">
+          <article class="panel">
+            <header>
+              <h3>Category-wise products chart</h3>
+            </header>
+            <div class="pie-layout">
+              <div class="pie-chart" [style.background]="pieGradient()"></div>
+              <div class="legend">
+                @for (item of categoryBreakdown(); track item.name; let i = $index) {
+                  <div class="legend-row">
+                    <span class="legend-dot" [style.background]="chartColors[i % chartColors.length]"></span>
+                    <strong>{{ item.name }}</strong>
+                    <small>{{ item.count }} items | {{ item.percent }}%</small>
+                  </div>
+                }
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <header>
+              <h3>Monthly total prices graph</h3>
+            </header>
+            <div class="graph-card">
+              <div class="graph-area">
+                @for (point of monthlyPriceGraph(); track point.key) {
+                  <div class="graph-point"
+                      [style.left.%]="point.x"
+                      [style.bottom.%]="point.y">
+                  </div>
+                }
+              </div>
+              <div class="graph-columns">
+                @for (point of monthlyPriceGraph(); track point.key) {
+                  <div class="graph-column">
+                    <div class="column-bar" [style.height.%]="point.y"></div>
+                    <strong>{{ point.total | appPrice }}</strong>
+                  <span>{{ point.label }}</span>
+                </div>
+              }
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </app-shell>

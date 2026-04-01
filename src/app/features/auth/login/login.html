@@ -1,0 +1,41 @@
+    <div class="auth-layout">
+      <app-auth-hero
+        title="Run your warehouse with clean, secure workflows."
+        description="Track stock, manage categories, and move between dashboard, inventory, and QR operations from a single production-ready workspace."
+      />
+
+      <section class="card">
+        <div>
+          <p class="eyebrow">Welcome back</p>
+          <h2>Login</h2>
+          <p class="copy">Use your username or email to continue.</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <label>
+            <span>Username or Email</span>
+            <input type="text" formControlName="identifier" placeholder="admin@warehouse.com">
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input type="password" formControlName="password" placeholder="Enter password">
+          </label>
+
+          <a routerLink="/forgot-password" class="aux-link">Forgot password?</a>
+
+          @if (error()) {
+            <p class="error">{{ error() }}</p>
+          }
+
+          <button type="submit" [disabled]="form.invalid || submitting()">
+            {{ submitting() ? 'Signing in...' : 'Sign in' }}
+          </button>
+        </form>
+
+        <p class="footer-copy">
+          Don't have an account?
+          <a routerLink="/register">Create one</a>
+        </p>
+      </section>
+    </div>

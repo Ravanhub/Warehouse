@@ -1,0 +1,39 @@
+<div class="shell">
+      <aside class="sidebar">
+        <div>
+          <p class="eyebrow">BRUNT REVERSAL JUST-IN-TIME GLITCH PROPHECY</p>
+          <h1>{{ title() }}</h1>
+          <p class="muted">Designed for {{ auth.isAdmin() ? 'administrators' : 'warehouse operators' }}.</p>
+        </div>
+
+        <nav class="nav">
+          <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+          <a routerLink="/inventory" routerLinkActive="active">Inventory</a>
+          @if (auth.isAdmin()) {
+            <a routerLink="/categories" routerLinkActive="active">Categories</a>
+          }
+          <a routerLink="/qr-scanner" routerLinkActive="active">QR Scanner</a>
+          @if (auth.isAdmin()) {
+            <a routerLink="/admin" routerLinkActive="active">Admin Hub</a>
+          }
+        </nav>
+
+        <div class="session-card">
+          <label class="currency-switcher">
+            <span>Currency</span>
+            <select [value]="currency.selected().code" (change)="changeCurrency($any($event.target).value)">
+              @for (option of currency.options; track option.code) {
+                <option [value]="option.code">{{ option.code }}</option>
+              }
+            </select>
+          </label>
+          <span class="badge">{{ roleLabel() }}</span>
+          <strong>{{ auth.session()?.username }}</strong>
+          <button type="button" class="ghost-btn" (click)="auth.logout()">Logout</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <ng-content />
+      </main>
+    </div>

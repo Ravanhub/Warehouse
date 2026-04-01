@@ -1,0 +1,50 @@
+    <app-shell title="Categories">
+    <div class="page">
+        <section class="hero-card">
+        <div>
+            <p class="eyebrow">Admin category control</p>
+            <h2>Create and manage product categories from the UI</h2>
+            <p class="copy">New categories saved here are pulled directly from the backend and will appear in the inventory product form.</p>
+        </div>
+        </section>
+
+        <section class="grid">
+        <article class="panel">
+            <h3>Create category</h3>
+            <form [formGroup]="form" class="form" (ngSubmit)="submit()">
+            <input type="text" formControlName="name" placeholder="Category name">
+            <button type="submit" [disabled]="form.invalid || saving()">
+                {{ saving() ? 'Saving...' : 'Create category' }}
+            </button>
+            </form>
+
+            @if (message()) {
+            <p class="success">{{ message() }}</p>
+            }
+            @if (error()) {
+            <p class="error">{{ error() }}</p>
+            }
+        </article>
+
+        <article class="panel">
+            <div class="panel-head">
+            <h3>Existing categories</h3>
+            <button type="button" class="ghost" (click)="loadCategories()">Refresh</button>
+            </div>
+
+            @if (!categories().length) {
+            <p class="empty">No categories in the database yet.</p>
+            }
+
+            <div class="category-list">
+            @for (category of categories(); track category.id) {
+                <div class="category-card">
+                <strong>{{ category.name }}</strong>
+                <span>ID {{ category.id }}</span>
+                </div>
+            }
+            </div>
+        </article>
+        </section>
+    </div>
+    </app-shell>

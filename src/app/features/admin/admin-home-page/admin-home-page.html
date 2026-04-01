@@ -1,0 +1,37 @@
+    <app-shell title="Admin Hub">
+      <div class="page">
+        <section class="hero-card">
+          <p class="eyebrow">Restricted access</p>
+          <h2>Admin workspace for system-wide warehouse control</h2>
+          <p class="copy">
+            Use this area to manage inventory operations, review product health, and jump into the core control screens.
+          </p>
+        </section>
+
+        <section class="grid">
+          <a routerLink="/dashboard" class="action-card">
+            <span>Overview</span>
+            <strong>Open dashboard</strong>
+            <p>Review stock volume, low inventory pressure, and category spread.</p>
+          </a>
+
+          <a routerLink="/categories" class="action-card">
+            <span>Category admin</span>
+            <strong>Manage categories</strong>
+            <p>Create and maintain product categories directly from the admin UI.</p>
+          </a>
+
+          <a routerLink="/inventory" class="action-card">
+            <span>Inventory admin</span>
+            <strong>Manage products</strong>
+            <p>Create, edit, and delete products with category-aware workflows.</p>
+          </a>
+
+          <a routerLink="/qr-scanner" class="action-card">
+            <span>Scanning</span>
+            <strong>Open QR scanner</strong>
+            <p>Use barcode and QR intake tools for receiving and lookup flows.</p>
+          </a>
+        </section>
+      </div>
+    </app-shell>
